@@ -1,0 +1,58 @@
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class Client {
+	private static final int PORT = 8000;
+
+	public static void main(String[] args) {
+		System.out.println("running client!");
+		
+		Socket socket = null;
+		ObjectOutputStream outputStream = null;
+		ObjectInputStream inputStream = null;
+		try {
+			InetAddress localInetAddress = InetAddress.getLocalHost();
+			socket = new Socket(localInetAddress, PORT); 
+
+			System.out.println("connected socket!");			
+
+			// Create and flush output stream first to prevent
+			// input stream from blocking.
+			outputStream = new ObjectOutputStream(socket.getOutputStream());
+			outputStream.flush();
+			
+			inputStream = new ObjectInputStream(socket.getInputStream());
+			
+			System.out.println("created streams!");	
+
+			outputStream.writeUTF("Hello World!  I love you.");
+			outputStream.flush();
+
+			System.out.println("message sent!");	
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			// Use finally so that resources are closed regardless of whether
+			// or not we hit an exception.
+			try {
+				if (socket != null) {
+					socket.close();
+				}
+				if (outputStream != null) {
+					outputStream.close();
+				}
+				if (inputStream != null) {
+					inputStream.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		System.out.println("client done!");	
+	}
+}

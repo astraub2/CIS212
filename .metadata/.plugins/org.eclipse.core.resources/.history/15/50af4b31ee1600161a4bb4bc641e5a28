@@ -1,0 +1,30 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+
+public class ReadandSort {
+	public static void main(String[] args) {
+		try {
+			File file = new File("phonebook.txt");
+			FileReader fileReader = new FileReader(file);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			StringBuffer stringBuffer = new StringBuffer();
+			String line;
+			int count=0;
+			while ((line = bufferedReader.readLine()) != null) {
+				///stringBuffer.append(line);
+				///stringBuffer.append("\n");
+				count+=1;
+			}
+			fileReader.close();
+			System.out.println(count);
+			///System.out.println(stringBuffer.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+}}
+
+

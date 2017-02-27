@@ -1,0 +1,58 @@
+import java.util.Scanner;
+
+public class Assignment2 {
+
+	public static void main( String[] args ){
+		Scanner input = new Scanner(System.in);  // Reading from System.in
+		System.out.println("Enter Array Length:");
+		int length=input.nextInt();
+	
+		System.out.println("Enter Density:");
+		int density=input.nextInt();
+		System.out.println(length);
+		System.out.println(density);
+		
+		
+		
+	}
+		
+	public static void densearray(int length, int dentity){
+			
+			///In this way, specifying an array length of 100 and a density of 0.25 would
+		///result in an array of length 100 with on average 75% of its values equal to 0.
+		
+			
+			
+			
+		}
+	public static void sparsearray(int length, int dentity){
+		
+		
+//In this way, specifying an array length of 100 and a density of 0.25 would result in an
+//ArrayList with on average 25 elements, each specifying the index and value of a non-zero
+//integer.
+	
+	}
+	public static void densetosparce(){
+		//Write a method which takes a dense array as an argument and returns a new equivalent
+//sparse array.
+	}
+	public static void sparsetodense(){
+		//Write a method which takes a sparse array as an argument and returns a new equivalent
+		//dense array. The dense array only needs to be large enough to fit all of the values. For
+		//example, the resulting dense array only needs to hold 90 values if the last element in the sparse
+		//array is at index 89.
+	}
+	public static void maxdense(){
+	
+	//Write a method which takes a dense array as an argument and prints the max value in
+	//the array, along with the index of that value in the array.
+	}
+	public static void maxsparce(){
+	//Write a method which takes a sparse array as an argument and prints the max value in
+	//the array, along with the original index of that value in the array
+		
+	}
+	}
+	
+	

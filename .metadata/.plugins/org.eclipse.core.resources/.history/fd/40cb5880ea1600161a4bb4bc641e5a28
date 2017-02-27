@@ -1,0 +1,7 @@
+
+public class main {
+	
+	public static int[] randomArray(int n){
+		Random random 
+	}
+}

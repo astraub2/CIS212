@@ -1,0 +1,25 @@
+
+
+public class NamesandNumbers {
+	public static String _phonenumber;
+	public static String _name;
+	
+	
+	public NamesandNumbers(String phonenumber, String name){
+		_phonenumber=phonenumber;
+		_name=name;
+		
+	
+	
+	}
+	public static String phonenumber(){
+		return _phonenumber;
+	}
+	
+	public static String name(){
+		return _name;
+		
+		
+	}
+
+}

@@ -1,0 +1,83 @@
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.Flushable;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+public class PrimesClient {
+
+    private BufferedReader in;
+    private PrintWriter out;
+    private JFrame frame = new JFrame("Prime Finder");
+    private JTextField dataField = new JTextField(40);
+    private JTextArea messageArea = new JTextArea(30, 60);
+
+    public PrimesClient() {
+
+        // Layout GUI
+        messageArea.setEditable(false);
+        frame.getContentPane().add(dataField, "North");
+        frame.getContentPane().add(new JScrollPane(messageArea), "Center");
+
+        // Add Listeners
+        dataField.addActionListener(new ActionListener() {
+           
+            public void actionPerformed(ActionEvent e) {
+                out.println(dataField.getText());
+                   String response = null;
+                try {
+                    response = in.readLine();
+                    if (response=="-1") {
+                    	
+        				//Thread.sleep(10000);
+                         System.exit(0);
+                      }
+                } catch (IOException ex) {
+                       response = "Error: " + ex;
+                
+				}
+                messageArea.append(response + "\n");
+                dataField.setText(null);
+                
+            }
+        });
+    }
+
+    
+    public void connectToServer() throws IOException {
+
+        
+        String serverAddress = null;
+
+        
+        Socket socket = new Socket(serverAddress, 9898);
+        in = new BufferedReader(
+                new InputStreamReader(socket.getInputStream()));
+        
+        out = new PrintWriter(socket.getOutputStream(), true);
+        out.flush();
+
+        
+    }
+
+    /**
+     * Runs the client application.
+     */
+    public static void main(String[] args) throws Exception {
+    	
+        PrimesClient client = new PrimesClient();
+        client.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        client.frame.pack();
+        client.frame.setVisible(true);
+        client.connectToServer();
+    }
+}

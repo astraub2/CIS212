@@ -1,0 +1,81 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
+
+public class ReadandSort {
+	public static void main(String[] args) {
+		ArrayList namesandnumbers=new ArrayList();
+		///http://www.avajava.com/tutorials/lessons/how-do-i-read-a-string-from-a-file-line-by-line.html
+		try {
+			File file = new File("phonebook.txt");
+			FileReader fileReader = new FileReader(file);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			StringBuffer stringBuffer = new StringBuffer();
+			String line;
+			///int count=0;
+			String phonenumber;
+			String name;
+			while ((line = bufferedReader.readLine()) != null) {
+				///count+=1;
+				stringBuffer.append(line);
+				phonenumber=stringBuffer.substring(0,8);
+				name=stringBuffer.substring(10, (line.length()));
+				stringBuffer = new StringBuffer();
+				NamesandNumbers selection= new NamesandNumbers(phonenumber, name);
+				namesandnumbers.add(selection);
+				
+			}
+			fileReader.close();
+			///System.out.println(count);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+			
+		ArrayList selectsorted=SelectionSort(namesandnumbers);
+		///MergeSort(namesandnumbers);
+		}
+		}
+	public final static void SelectionSort(ArrayList namesandNumbers){
+		     Object min;
+		     for (int i=0; i<namesandNumbers.size();i++){
+		    	min=namesandNumbers.get(i);
+		    	String minValue=((NamesandNumbers) min).name();
+		    	
+		    	for (int j = i + 1; j < namesandNumbers.size(); j++) {
+		    		Object person=namesandNumbers.get(j);
+		    		String name=((NamesandNumbers) person).name();
+		    		int compare = minValue.compareTo(name);
+		    	
+		            if (compare > 0) {
+		            	min=namesandNumbers.get(j);
+				    	minValue=((NamesandNumbers) min).name();
+		            }
+
+		     
+		    	}
+		            if (min != namesandNumbers.get(i)) {
+		                final String temp =minValue;
+		                namesandNumbers.set(i, min);
+		                
+		               
+		                
+		            }
+		     }
+	}
+	
+	
+	///public static MergeSort(ArrayList namesandNumbers){
+		
+		
+		
+		
+	}
+	
+		
+
+
+
+

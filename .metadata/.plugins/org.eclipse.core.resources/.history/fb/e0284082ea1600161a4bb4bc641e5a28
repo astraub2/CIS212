@@ -1,0 +1,20 @@
+public class midterm{
+	
+	public static void main(String[] args)
+	{
+	Blastoff(10);		
+		
+	}
+	public static void Blastoff(int n){
+		for(int i = n; i>0; --i){
+			System.out.println(i);
+			
+		}
+		System.out.println("Blastoff");
+		
+	}
+	
+	
+	
+	}
+

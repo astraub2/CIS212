@@ -1,0 +1,77 @@
+public class Main {
+	private static void printElapsedTimeMs(long startTimeNs) {
+		double elapsedTimeMs = (System.nanoTime() - startTimeNs) / 1000000.0;
+		System.out.println("elapsed time (ms): " + elapsedTimeMs);
+	}
+	
+	private static long iterativeFactorial(long n) {
+		if (n <= 1) {
+			return 1;
+		}
+		
+		long factorial = 1;
+		for (long i = n; i >= 2; --i) {
+			factorial *= i;
+		}
+		
+		return factorial;
+	}
+	
+	private static long recursiveFactorial(long n) {
+		if (n <= 1) {
+			return 1;
+		}
+		
+		// More verbose than necessary for the sake of visibility in
+		// the debugger.
+		long factNMinusOne = recursiveFactorial(n - 1);
+		long fact = n*factNMinusOne;
+		return fact;
+	}
+	
+	private static long iterativeFibonacci(long n) {
+		if (n <= 1) {
+			return n;
+		}
+		
+		long current = 1;
+		long previous = 1;
+		for (int i = 2; i < n; ++i) {
+			long newCurrent = current + previous;
+			previous = current;
+			current = newCurrent;
+		}
+		
+		return current;
+	}
+	
+	private static long recursiveFibonacci(long n) {
+		if (n <= 1) {
+			return n;
+		}
+		
+		return recursiveFibonacci(n - 1) + recursiveFibonacci(n - 2);
+	}
+	
+	public static void main(String[] args) {
+		long startTimeNs = System.nanoTime();
+		long n = iterativeFactorial(1);
+		printElapsedTimeMs(startTimeNs);		
+		System.out.println("iterative factorial (10): " + n);
+		
+		startTimeNs = System.nanoTime();
+		n = recursiveFactorial(10);
+		printElapsedTimeMs(startTimeNs);		
+		System.out.println("recursive factorial (10): " + n);
+
+		startTimeNs = System.nanoTime();
+		n = iterativeFibonacci(40);
+		printElapsedTimeMs(startTimeNs);		
+		System.out.println("iterative fibonacci (40): " + n);
+
+		startTimeNs = System.nanoTime();
+		n = recursiveFibonacci(40);
+		printElapsedTimeMs(startTimeNs);		
+		System.out.println("recursive fibonacci (40): " + n);
+	}
+}

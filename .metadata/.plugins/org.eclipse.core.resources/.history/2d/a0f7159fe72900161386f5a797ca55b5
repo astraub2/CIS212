@@ -1,0 +1,70 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.util.ArrayList;
+
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+public class simplePrimeClient {
+	static ObjectOutputStream toServer;
+    static ObjectInputStream fromServer;
+    static ArrayList<Integer> numbers=new ArrayList<Integer>();
+    public static void main(String[]args) throws IOException, ClassNotFoundException{
+
+// Establish connection with the server
+    	String host = null;
+        Socket socket = new Socket( host, 7000);
+        //System.out.println("socket made");
+        //Gui
+        JFrame frame = new JFrame("Prime Finder");
+        JTextField dataField = new JTextField(40);
+        JTextArea messageArea = new JTextArea(30, 60);
+        messageArea.setEditable(false);
+        frame.getContentPane().add(dataField, "North");
+        frame.getContentPane().add(new JScrollPane(messageArea), "Center");
+        messageArea.append("Hello, welcome to the prime finder!" + "\n");
+        messageArea.append("Enter a -1 to display results" + "\n");
+        messageArea.append("Enter a blank line to close at any time"+ "\n");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+        dataField.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e) {
+            	
+            	int number = Integer.parseInt((dataField.getText()));
+                numbers.add(number);
+            	messageArea.append(number + "\n");
+            	dataField.setText(null);
+                
+                
+                
+            }
+        });
+        
+        
+        System.out.println("Client Sent: "+numbers);
+        
+
+            // Create an output stream to the server
+            toServer = new ObjectOutputStream(socket.getOutputStream());
+            fromServer = new ObjectInputStream(socket.getInputStream());
+            try {
+            	System.out.println("sending data");
+                toServer.writeObject(numbers);
+                toServer.flush();
+                System.out.println("sent");
+                Object result = fromServer.readObject();
+                System.out.println("Client Recieved: "+result);
+                    } catch (IOException ex) {
+                        System.err.println(ex);
+                    }
+
+}
+}
